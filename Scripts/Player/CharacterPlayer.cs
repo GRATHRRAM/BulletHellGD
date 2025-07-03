@@ -21,9 +21,6 @@ public partial class CharacterPlayer : CharacterBody2D
 	[Export]
 	public float AirFriction = 0.99f;
 
-	[Export]
-	public float Bounce = 0.20f;
-
 	public UInt16 PlayerInfo = 1;
 
 	/*
@@ -32,13 +29,14 @@ public partial class CharacterPlayer : CharacterBody2D
 		1 = Player1 (keyboard)
 		2 = Player2 (keyboard)
 		3 = Player3 (GamePad) // to add
-		4 = Player4 (GamePad) // to add
 	*/
 
 
 	public override void _PhysicsProcess(double delta)
 	{
 		base._PhysicsProcess(delta);
+
+		if (Position.Y > 2000) Position = -Position;
 
 		if (!IsOnFloor()) 
 		{ 
@@ -71,10 +69,15 @@ public partial class CharacterPlayer : CharacterBody2D
 		{
 			if (Input.IsActionPressed("Up2") && IsOnFloor()) Velocity -= new Vector2(0, JumpPower);
 
-			if (Input.IsActionPressed("Right2") && Math.Abs(Velocity.X) < MaxMovementSpeed) Velocity += new Vector2( Speed * (float)delta, 0);
-			if (Input.IsActionPressed("Left2")  && Math.Abs(Velocity.X) < MaxMovementSpeed) Velocity += new Vector2(-Speed * (float)delta, 0);
-		}
+            if (Input.IsActionPressed("Right2") && Velocity.X <  MaxMovementSpeed) Velocity += new Vector2( Speed * (float)delta, 0);
+            if (Input.IsActionPressed("Left2")  && Velocity.X > -MaxMovementSpeed) Velocity += new Vector2(-Speed * (float)delta, 0);
+        }
 
 		MoveAndSlide();
+    }
+
+	public void SetInfo(UInt16 Info)
+	{
+		PlayerInfo = Info;
 	}
 }

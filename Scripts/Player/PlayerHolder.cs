@@ -1,0 +1,145 @@
+using Godot;
+using System;
+using System.Collections.Generic;
+
+public partial class PlayerHolder : Node2D
+{
+	[Export]
+	private PackedScene PlayerScene = null;
+
+	[Export]
+	private Node2D Camera = null;
+
+	[Export]
+	public float MinZoom = 0.2f;
+
+	[Export]
+	public float MaxZoom = 1.5f;
+
+	[Export]
+	public float ZoomSpeed = 5f;
+
+	private Int16 PlayerCount = 1;
+
+	private bool Player2 = false;
+
+	private Vector2 CamDest = Vector2.Zero;
+	
+	private float CamDist = 0.0f;
+
+	public override void _Ready()
+	{
+		base._Ready();
+
+		if (PlayerScene == null) GD.Print("PlayerHolder PlayerScene Null!!!!");
+		if (Camera == null)      GD.Print("PlayerHolder Camera Null!!!!");
+
+		Node2D Player = PlayerScene.Instantiate<Node2D>();
+		Player.GetNode<Node>("CharacterBody2D").Call("SetInfo", 1);
+		AddChild(Player);
+	}
+
+	public override void _Process(double delta)
+	{
+		base._Process(delta);
+
+		CamDest = Vector2.Zero;
+
+		foreach (Node child in GetChildren())
+		{
+			if (child is Node2D Player)
+			{
+				if (Player.HasMeta("CamHolder")) continue;
+				CamDest += Player.GetNode<CharacterBody2D>("CharacterBody2D").Position;
+			}
+		}
+
+		CamDest /= PlayerCount;
+
+
+		Vector2 CamPos = Camera.Position;
+		CamPos.X = Mathf.Lerp(CamPos.X, CamDest.X, Mathf.Ease(0.3f, 2.45f));
+		CamPos.Y = Mathf.Lerp(CamPos.Y, CamDest.Y, Mathf.Ease(0.3f, 2.45f));
+		Camera.Position = CamPos;
+
+		if (PlayerCount > 1)
+		{
+			List<Vector2> playerPositions = new();
+
+			foreach (Node child in GetChildren())
+			{
+				if (child is Node2D player && !player.HasMeta("CamHolder"))
+				{
+					var body = player.GetNode<CharacterBody2D>("CharacterBody2D");
+					playerPositions.Add(body.Position);
+				}
+			}
+
+			float maxDistance = 0f;
+
+			for (int i = 0; i < playerPositions.Count - 1; i++)
+			{
+				for (int j = i + 1; j < playerPositions.Count; j++)
+				{
+					float dist = playerPositions[i].DistanceTo(playerPositions[j]);
+					if (dist > maxDistance)
+						maxDistance = dist;
+				}
+			}
+
+			maxDistance *= 1.5f;
+			float zoomFactor = Mathf.Clamp(MaxZoom - (maxDistance / 1500f), MinZoom, MaxZoom);
+
+			Vector2 currentZoom = Camera.GetNode<Camera2D>("Camera2D").Zoom; ;
+			Vector2 targetZoom = new Vector2(zoomFactor, zoomFactor);
+			Camera.GetNode<Camera2D>("Camera2D").Zoom = currentZoom.Lerp(targetZoom, (float)delta * ZoomSpeed);
+		}
+		else { Camera.GetNode<Camera2D>("Camera2D").Zoom = Camera.GetNode<Camera2D>("Camera2D").Zoom.Lerp(new Vector2(1f,1f), (float)delta * ZoomSpeed); }
+	}
+
+	public override void _Input(InputEvent @event)
+	{
+		base._Input(@event);
+
+		if (!Player2)
+		{
+			if (Input.IsActionPressed("Up2") ||
+			   Input.IsActionPressed("Left2")||
+			   Input.IsActionPressed("Right2"))
+			{
+				Player2 = true;
+				SpawnPlayer2();
+			}
+		} else {
+			if (Input.IsActionJustPressed("FreePlayer2"))
+			{
+				FreePlayer2();
+				Player2 = false;
+			}
+		}
+	}
+
+	public void SpawnPlayer2()
+	{
+		Node2D Player = PlayerScene.Instantiate<Node2D>();
+		Player.GetNode<Node>("CharacterBody2D").Call("SetInfo", 2);
+		AddChild(Player);
+		PlayerCount++;
+	}
+
+	public void FreePlayer2()
+	{
+		foreach (Node child in GetChildren())
+		{
+			if (child is Node2D Player)
+			{
+				if (Player.HasMeta("CamHolder")) continue;
+				if (Player.GetNode<CharacterBody2D>("CharacterBody2D") is CharacterPlayer character && character.PlayerInfo == 2)
+				{
+					Player.QueueFree();
+					PlayerCount--;
+				}
+			}
+		}
+	}
+}

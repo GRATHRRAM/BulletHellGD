@@ -14,5 +14,11 @@ namespace BulletHellGD.Scripts
             Random Rand = new Random();
             return new Color(Rand.Next(0, 100) / 100f, Rand.Next(0, 100) / 100f, Rand.Next(0, 100) / 100f);
         }
+
+        public static UInt16 RandomId()
+        {
+            Random Rand = new Random();
+            return (UInt16)Rand.Next(0, UInt16.MaxValue);
+        }
     }
 }

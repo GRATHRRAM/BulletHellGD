@@ -1,10 +1,11 @@
 [gd_scene load_steps=4 format=3 uid="uid://bpi0vie6r6xaw"]
 
 [ext_resource type="PackedScene" uid="uid://dqey8qcrkc7xa" path="res://Scenes/Platforms/NormalPlatform.tscn" id="1_lb8c6"]
-[ext_resource type="PackedScene" uid="uid://cn1ahqcv5phvn" path="res://Scenes/Player/Player.tscn" id="2_nxgca"]
+[ext_resource type="PackedScene" uid="uid://dr1eiorp1xgbn" path="res://Scenes/Player/PlayerHolder.tscn" id="2_nxgca"]
 
 [sub_resource type="TextMesh" id="TextMesh_nxgca"]
-text = "Wellcome in Bullet Hell"
+text = "Wellcome in Bullet Hell Lobby
+"
 
 [node name="Lobby" type="Node2D"]
 
@@ -12,9 +13,6 @@ text = "Wellcome in Bullet Hell"
 position = Vector2(576, 32)
 scale = Vector2(298.331, -477.241)
 mesh = SubResource("TextMesh_nxgca")
-
-[node name="Player" parent="." instance=ExtResource("2_nxgca")]
-position = Vector2(568, 216)
 
 [node name="MapLayout" type="Node2D" parent="."]
 
@@ -38,13 +36,13 @@ rotation = 0.0817501
 scale = Vector2(4.52613, 8.29284)
 
 [node name="NormalPlatform6" parent="MapLayout" instance=ExtResource("1_lb8c6")]
-position = Vector2(1520, 104)
+position = Vector2(1563, 127)
 rotation = -0.524518
 scale = Vector2(6.62858, 1.22275)
 
 [node name="NormalPlatform7" parent="MapLayout" instance=ExtResource("1_lb8c6")]
-position = Vector2(1384, -480)
-rotation = 1.27582
+position = Vector2(1261, -452)
+rotation = 0.536647
 scale = Vector2(6.62858, 1.22275)
 
 [node name="NormalPlatform8" parent="MapLayout" instance=ExtResource("1_lb8c6")]
@@ -57,7 +55,7 @@ position = Vector2(15.9999, -360)
 scale = Vector2(17.8286, 1.22275)
 
 [node name="NormalPlatform9" parent="MapLayout" instance=ExtResource("1_lb8c6")]
-position = Vector2(1600, -296)
+position = Vector2(1572, -243)
 rotation = 0.0342627
 scale = Vector2(3.34709, 1.22275)
 
@@ -65,3 +63,6 @@ scale = Vector2(3.34709, 1.22275)
 position = Vector2(-744, -104)
 rotation = -0.408523
 scale = Vector2(1.04709, 0.641567)
+
+[node name="PlayerHolder" parent="." instance=ExtResource("2_nxgca")]
+position = Vector2(572, 46)
