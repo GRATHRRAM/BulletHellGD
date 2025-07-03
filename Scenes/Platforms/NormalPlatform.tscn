@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://dqey8qcrkc7xa"]
+
+[ext_resource type="Script" uid="uid://dvykyxjqdxn7j" path="res://Scripts/Platforms/NormalPlatform.cs" id="1_vlwbk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ogpu2"]
+size = Vector2(64, 64)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ogpu2"]
+
+[node name="NormalPlatform" type="Node2D"]
+script = ExtResource("1_vlwbk")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(32, 32)
+shape = SubResource("RectangleShape2D_ogpu2")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="StaticBody2D"]
+position = Vector2(32, 32)
+scale = Vector2(64, 64)
+mesh = SubResource("BoxMesh_ogpu2")

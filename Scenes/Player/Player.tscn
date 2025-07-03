@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://cn1ahqcv5phvn"]
+
+[ext_resource type="Script" uid="uid://ddcwsv20jafid" path="res://Scripts/Player/NodePlayer.cs" id="1_ft8w5"]
+[ext_resource type="Script" uid="uid://d2vst04oi5jyp" path="res://Scripts/Player/CharacterPlayer.cs" id="1_s0eop"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_l3ax4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l3ax4"]
+size = Vector2(32, 64)
+
+[node name="Player" type="Node2D"]
+script = ExtResource("1_ft8w5")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+script = ExtResource("1_s0eop")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="CharacterBody2D"]
+scale = Vector2(32, 64)
+mesh = SubResource("BoxMesh_l3ax4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("RectangleShape2D_l3ax4")
+
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
+position_smoothing_enabled = true
+position_smoothing_speed = 3.0

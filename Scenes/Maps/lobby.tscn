@@ -1,0 +1,67 @@
+[gd_scene load_steps=4 format=3 uid="uid://bpi0vie6r6xaw"]
+
+[ext_resource type="PackedScene" uid="uid://dqey8qcrkc7xa" path="res://Scenes/Platforms/NormalPlatform.tscn" id="1_lb8c6"]
+[ext_resource type="PackedScene" uid="uid://cn1ahqcv5phvn" path="res://Scenes/Player/Player.tscn" id="2_nxgca"]
+
+[sub_resource type="TextMesh" id="TextMesh_nxgca"]
+text = "Wellcome in Bullet Hell"
+
+[node name="Lobby" type="Node2D"]
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+position = Vector2(576, 32)
+scale = Vector2(298.331, -477.241)
+mesh = SubResource("TextMesh_nxgca")
+
+[node name="Player" parent="." instance=ExtResource("2_nxgca")]
+position = Vector2(568, 216)
+
+[node name="MapLayout" type="Node2D" parent="."]
+
+[node name="NormalPlatform" parent="MapLayout" instance=ExtResource("1_lb8c6")]
+position = Vector2(8, 384)
+scale = Vector2(17.8286, 4.14275)
+
+[node name="NormalPlatform2" parent="MapLayout" instance=ExtResource("1_lb8c6")]
+position = Vector2(-488, 144)
+rotation = 0.367022
+scale = Vector2(5.82858, 1.86275)
+
+[node name="NormalPlatform3" parent="MapLayout" instance=ExtResource("1_lb8c6")]
+position = Vector2(1432, 256)
+rotation = 1.40232
+scale = Vector2(5.82858, 1.86275)
+
+[node name="NormalPlatform5" parent="MapLayout" instance=ExtResource("1_lb8c6")]
+position = Vector2(-928, 16)
+rotation = 0.0817501
+scale = Vector2(4.52613, 8.29284)
+
+[node name="NormalPlatform6" parent="MapLayout" instance=ExtResource("1_lb8c6")]
+position = Vector2(1520, 104)
+rotation = -0.524518
+scale = Vector2(6.62858, 1.22275)
+
+[node name="NormalPlatform7" parent="MapLayout" instance=ExtResource("1_lb8c6")]
+position = Vector2(1384, -480)
+rotation = 1.27582
+scale = Vector2(6.62858, 1.22275)
+
+[node name="NormalPlatform8" parent="MapLayout" instance=ExtResource("1_lb8c6")]
+position = Vector2(-480, -176)
+rotation = -0.257058
+scale = Vector2(6.62858, 1.22275)
+
+[node name="NormalPlatform4" parent="MapLayout" instance=ExtResource("1_lb8c6")]
+position = Vector2(15.9999, -360)
+scale = Vector2(17.8286, 1.22275)
+
+[node name="NormalPlatform9" parent="MapLayout" instance=ExtResource("1_lb8c6")]
+position = Vector2(1600, -296)
+rotation = 0.0342627
+scale = Vector2(3.34709, 1.22275)
+
+[node name="NormalPlatform10" parent="MapLayout" instance=ExtResource("1_lb8c6")]
+position = Vector2(-744, -104)
+rotation = -0.408523
+scale = Vector2(1.04709, 0.641567)
