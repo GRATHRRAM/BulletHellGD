@@ -14,18 +14,10 @@ public partial class PlayerHolder : Node2D
 	public float MinZoom = 0.2f;
 
 	[Export]
-	public float MaxZoom = 1.5f;
+	public float MaxZoom = 1f;
 
 	[Export]
 	public float ZoomSpeed = 5f;
-
-	private Int16 PlayerCount = 1;
-
-	private bool Player2 = false;
-
-	private Vector2 CamDest = Vector2.Zero;
-	
-	private float CamDist = 0.0f;
 
 	public override void _Ready()
 	{
@@ -33,33 +25,33 @@ public partial class PlayerHolder : Node2D
 
 		if (PlayerScene == null) GD.Print("PlayerHolder PlayerScene Null!!!!");
 		if (Camera == null)      GD.Print("PlayerHolder Camera Null!!!!");
-
-		Node2D Player = PlayerScene.Instantiate<Node2D>();
-		Player.GetNode<Node>("CharacterBody2D").Call("SetInfo", 1);
-		AddChild(Player);
 	}
 
 	public override void _Process(double delta)
 	{
 		base._Process(delta);
 
-		CamDest = Vector2.Zero;
+		Vector2 CamDest = Vector2.Zero;
+
+		Int16 PlayerCount = 0;
 
 		foreach (Node child in GetChildren())
 		{
 			if (child is Node2D Player)
 			{
 				if (Player.HasMeta("CamHolder")) continue;
+				if (Player.HasMeta("MultiplayerSpawner")) continue;
 				CamDest += Player.GetNode<CharacterBody2D>("CharacterBody2D").Position;
+				PlayerCount++;
 			}
 		}
 
+		if (PlayerCount == 0) PlayerCount++;
 		CamDest /= PlayerCount;
 
-
 		Vector2 CamPos = Camera.Position;
-		CamPos.X = Mathf.Lerp(CamPos.X, CamDest.X, Mathf.Ease(0.3f, 2.45f));
-		CamPos.Y = Mathf.Lerp(CamPos.Y, CamDest.Y, Mathf.Ease(0.3f, 2.45f));
+		CamPos.X = Mathf.Lerp(CamPos.X, CamDest.X, Mathf.Ease(0.5f, 2.45f));
+		CamPos.Y = Mathf.Lerp(CamPos.Y, CamDest.Y, Mathf.Ease(0.5f, 2.45f));
 		Camera.Position = CamPos;
 
 		if (PlayerCount > 1)
@@ -97,48 +89,23 @@ public partial class PlayerHolder : Node2D
 		else { Camera.GetNode<Camera2D>("Camera2D").Zoom = Camera.GetNode<Camera2D>("Camera2D").Zoom.Lerp(new Vector2(1f,1f), (float)delta * ZoomSpeed); }
 	}
 
-	public override void _Input(InputEvent @event)
-	{
-		base._Input(@event);
 
-		if (!Player2)
-		{
-			if (Input.IsActionPressed("Up2") ||
-			   Input.IsActionPressed("Left2")||
-			   Input.IsActionPressed("Right2"))
-			{
-				Player2 = true;
-				SpawnPlayer2();
-			}
-		} else {
-			if (Input.IsActionJustPressed("FreePlayer2"))
-			{
-				FreePlayer2();
-				Player2 = false;
-			}
-		}
-	}
-
-	public void SpawnPlayer2()
+	public void SpawnPlayer(UInt16 PlayerInfo, long pid)
 	{
 		Node2D Player = PlayerScene.Instantiate<Node2D>();
-		Player.GetNode<Node>("CharacterBody2D").Call("SetInfo", 2);
-		AddChild(Player);
-		PlayerCount++;
+		Player.GetNode<Node>("CharacterBody2D").Call("SetInfo", PlayerInfo);
+		Player.Name = pid.ToString();
+		AddChild(Player, true);
 	}
 
-	public void FreePlayer2()
+	public void FreePlayer(long pid)
 	{
 		foreach (Node child in GetChildren())
 		{
 			if (child is Node2D Player)
 			{
 				if (Player.HasMeta("CamHolder")) continue;
-				if (Player.GetNode<CharacterBody2D>("CharacterBody2D") is CharacterPlayer character && character.PlayerInfo == 2)
-				{
-					Player.QueueFree();
-					PlayerCount--;
-				}
+				if (Player.Name == pid.ToString()) Player.QueueFree();
 			}
 		}
 	}

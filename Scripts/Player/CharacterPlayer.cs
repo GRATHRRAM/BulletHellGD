@@ -25,7 +25,6 @@ public partial class CharacterPlayer : CharacterBody2D
 
 	/*
 		PlayerInfo
-		0 = Net // to add
 		1 = Player1 (keyboard)
 		2 = Player2 (keyboard)
 		3 = Player3 (GamePad) // to add
@@ -35,6 +34,8 @@ public partial class CharacterPlayer : CharacterBody2D
 	public override void _PhysicsProcess(double delta)
 	{
 		base._PhysicsProcess(delta);
+
+		if (!IsMultiplayerAuthority()) return;
 
 		if (Position.Y > 2000) Position = -Position;
 

@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://bpi0vie6r6xaw"]
+[gd_scene load_steps=3 format=3 uid="uid://bpi0vie6r6xaw"]
 
 [ext_resource type="PackedScene" uid="uid://dqey8qcrkc7xa" path="res://Scenes/Platforms/NormalPlatform.tscn" id="1_lb8c6"]
-[ext_resource type="PackedScene" uid="uid://dr1eiorp1xgbn" path="res://Scenes/Player/PlayerHolder.tscn" id="2_nxgca"]
 
 [sub_resource type="TextMesh" id="TextMesh_nxgca"]
 text = "Wellcome in Bullet Hell Lobby
@@ -63,6 +62,3 @@ scale = Vector2(3.34709, 1.22275)
 position = Vector2(-744, -104)
 rotation = -0.408523
 scale = Vector2(1.04709, 0.641567)
-
-[node name="PlayerHolder" parent="." instance=ExtResource("2_nxgca")]
-position = Vector2(572, 46)

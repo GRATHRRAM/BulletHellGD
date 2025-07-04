@@ -14,3 +14,7 @@ metadata/CamHolder = true
 [node name="Camera2D" type="Camera2D" parent="CamHolder"]
 position_smoothing_enabled = true
 position_smoothing_speed = 2.0
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://cn1ahqcv5phvn")
+spawn_path = NodePath("..")

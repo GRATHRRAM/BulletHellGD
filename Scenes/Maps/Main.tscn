@@ -1,0 +1,82 @@
+[gd_scene load_steps=5 format=3 uid="uid://bcm1k121befby"]
+
+[ext_resource type="PackedScene" uid="uid://bpi0vie6r6xaw" path="res://Scenes/Maps/lobby.tscn" id="1_4txy7"]
+[ext_resource type="Script" uid="uid://f3ly6kmgjl2d" path="res://Scripts/Main.cs" id="1_ohl52"]
+[ext_resource type="PackedScene" uid="uid://dr1eiorp1xgbn" path="res://Scenes/Player/PlayerHolder.tscn" id="2_2h353"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_2h353"]
+font_size = 15
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_ohl52")
+
+[node name="Map" type="Node" parent="."]
+
+[node name="Lobby" parent="Map" instance=ExtResource("1_4txy7")]
+
+[node name="PlayerHolder" parent="." instance=ExtResource("2_2h353")]
+position = Vector2(585, 63)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 363.0
+offset_bottom = 254.0
+
+[node name="info" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 2
+offset_left = 32.0
+offset_top = 8.0
+offset_right = 180.0
+offset_bottom = 80.0
+text = "Press ` To Hide Leave
+Ip Empty While Hosting"
+label_settings = SubResource("LabelSettings_2h353")
+
+[node name="Ip" type="TextEdit" parent="CanvasLayer/Control"]
+layout_mode = 2
+offset_left = 32.0
+offset_top = 64.0
+offset_right = 184.0
+offset_bottom = 104.0
+placeholder_text = "IP Address"
+
+[node name="Port" type="TextEdit" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 112.0
+offset_right = 184.0
+offset_bottom = 152.0
+placeholder_text = "Port"
+
+[node name="Join" type="Button" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 160.0
+offset_right = 184.0
+offset_bottom = 200.0
+text = "Join"
+
+[node name="Host" type="Button" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 208.0
+offset_right = 184.0
+offset_bottom = 248.0
+text = "Host"
+
+[node name="hosting" type="Label" parent="CanvasLayer/Control"]
+visible = false
+layout_mode = 0
+offset_left = 200.0
+offset_top = 216.0
+offset_right = 313.0
+offset_bottom = 239.0
+text = "Hosting "
+
+[connection signal="pressed" from="CanvasLayer/Control/Join" to="." method="_on_join_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/Host" to="." method="_on_host_pressed"]
