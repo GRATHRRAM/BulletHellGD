@@ -1,11 +1,34 @@
-[gd_scene load_steps=4 format=3 uid="uid://dqey8qcrkc7xa"]
+[gd_scene load_steps=9 format=3 uid="uid://dqey8qcrkc7xa"]
 
 [ext_resource type="Script" uid="uid://dvykyxjqdxn7j" path="res://Scripts/Platforms/NormalPlatform.cs" id="1_vlwbk"]
+[ext_resource type="Shader" uid="uid://cxmhc5ls6285d" path="res://shaders/NormalPlatform.gdshader" id="2_nk86w"]
+[ext_resource type="Texture2D" uid="uid://cjeh7oc6rcwcd" path="res://Base.png" id="3_ksl2y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ogpu2"]
 size = Vector2(64, 64)
 
-[sub_resource type="BoxMesh" id="BoxMesh_ogpu2"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l33a5"]
+shader = ExtResource("2_nk86w")
+shader_parameter/outline_color = Vector4(0, 0, 0, 1)
+shader_parameter/outline_thickness = 11.465
+shader_parameter/glow_size = 24.79
+shader_parameter/glow_strength = 25.0
+shader_parameter/noise_scale = 10.575
+shader_parameter/noise_strength = 9.005
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ksl2y"]
+
+[sub_resource type="Sky" id="Sky_lb8c6"]
+sky_material = SubResource("ProceduralSkyMaterial_ksl2y")
+
+[sub_resource type="Environment" id="Environment_l33a5"]
+background_mode = 3
+sky = SubResource("Sky_lb8c6")
+glow_enabled = true
+glow_blend_mode = 1
+fog_light_energy = 2.01
+fog_sun_scatter = 3.75
+fog_density = 0.8942
 
 [node name="NormalPlatform" type="Node2D"]
 script = ExtResource("1_vlwbk")
@@ -13,10 +36,12 @@ script = ExtResource("1_vlwbk")
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(32, 32)
 shape = SubResource("RectangleShape2D_ogpu2")
 
-[node name="MeshInstance2D" type="MeshInstance2D" parent="StaticBody2D"]
-position = Vector2(32, 32)
-scale = Vector2(64, 64)
-mesh = SubResource("BoxMesh_ogpu2")
+[node name="Sprite" type="Sprite2D" parent="StaticBody2D"]
+modulate = Color(0.489622, 0.489622, 0.489622, 1)
+material = SubResource("ShaderMaterial_l33a5")
+texture = ExtResource("3_ksl2y")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_l33a5")

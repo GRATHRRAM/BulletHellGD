@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://bpi0vie6r6xaw"]
+[gd_scene load_steps=6 format=3 uid="uid://bpi0vie6r6xaw"]
 
 [ext_resource type="PackedScene" uid="uid://dqey8qcrkc7xa" path="res://Scenes/Platforms/NormalPlatform.tscn" id="1_lb8c6"]
 
@@ -6,59 +6,71 @@
 text = "Wellcome in Bullet Hell Lobby
 "
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lb8c6"]
+
+[sub_resource type="Sky" id="Sky_lb8c6"]
+sky_material = SubResource("ProceduralSkyMaterial_lb8c6")
+
+[sub_resource type="Environment" id="Environment_st6ng"]
+background_mode = 3
+sky = SubResource("Sky_lb8c6")
+glow_enabled = true
+glow_blend_mode = 1
+fog_light_energy = 2.01
+fog_sun_scatter = 3.75
+fog_density = 0.8942
+
 [node name="Lobby" type="Node2D"]
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="."]
-position = Vector2(576, 32)
+position = Vector2(576, 374)
 scale = Vector2(298.331, -477.241)
 mesh = SubResource("TextMesh_nxgca")
 
 [node name="MapLayout" type="Node2D" parent="."]
 
 [node name="NormalPlatform" parent="MapLayout" instance=ExtResource("1_lb8c6")]
-position = Vector2(8, 384)
+position = Vector2(574, 792)
 scale = Vector2(17.8286, 4.14275)
 
 [node name="NormalPlatform2" parent="MapLayout" instance=ExtResource("1_lb8c6")]
-position = Vector2(-488, 144)
+position = Vector2(-264, 568)
 rotation = 0.367022
 scale = Vector2(5.82858, 1.86275)
 
 [node name="NormalPlatform3" parent="MapLayout" instance=ExtResource("1_lb8c6")]
-position = Vector2(1432, 256)
+position = Vector2(1382, 730)
 rotation = 1.40232
 scale = Vector2(5.82858, 1.86275)
 
 [node name="NormalPlatform5" parent="MapLayout" instance=ExtResource("1_lb8c6")]
-position = Vector2(-928, 16)
+position = Vector2(-683, 578)
 rotation = 0.0817501
 scale = Vector2(4.52613, 8.29284)
 
 [node name="NormalPlatform6" parent="MapLayout" instance=ExtResource("1_lb8c6")]
-position = Vector2(1563, 127)
+position = Vector2(1726, 386)
 rotation = -0.524518
 scale = Vector2(6.62858, 1.22275)
 
 [node name="NormalPlatform7" parent="MapLayout" instance=ExtResource("1_lb8c6")]
-position = Vector2(1261, -452)
+position = Vector2(1365, -105)
 rotation = 0.536647
 scale = Vector2(6.62858, 1.22275)
 
 [node name="NormalPlatform8" parent="MapLayout" instance=ExtResource("1_lb8c6")]
-position = Vector2(-480, -176)
-rotation = -0.257058
+position = Vector2(-220, 126)
+rotation = -0.479626
 scale = Vector2(6.62858, 1.22275)
 
 [node name="NormalPlatform4" parent="MapLayout" instance=ExtResource("1_lb8c6")]
-position = Vector2(15.9999, -360)
+position = Vector2(565, -79)
 scale = Vector2(17.8286, 1.22275)
 
 [node name="NormalPlatform9" parent="MapLayout" instance=ExtResource("1_lb8c6")]
-position = Vector2(1572, -243)
+position = Vector2(1596, 162)
 rotation = 0.0342627
 scale = Vector2(3.34709, 1.22275)
 
-[node name="NormalPlatform10" parent="MapLayout" instance=ExtResource("1_lb8c6")]
-position = Vector2(-744, -104)
-rotation = -0.408523
-scale = Vector2(1.04709, 0.641567)
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_st6ng")

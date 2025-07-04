@@ -17,7 +17,7 @@ script = ExtResource("1_ohl52")
 [node name="Lobby" parent="Map" instance=ExtResource("1_4txy7")]
 
 [node name="PlayerHolder" parent="." instance=ExtResource("2_2h353")]
-position = Vector2(585, 63)
+position = Vector2(576, 328)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
