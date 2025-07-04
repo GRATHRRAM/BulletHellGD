@@ -33,7 +33,7 @@ public partial class Main : Node2D
 		Multiplayer.MultiplayerPeer = peer;
 		GetNode<Label>("CanvasLayer/Control/hosting").Visible = true;
 
-		GetNode<Node2D>("PlayerHolder").Call("SpawnPlayer", 1, Multiplayer.GetUniqueId());
+		GetNode<Node2D>("PlayerHolder").Call("SpawnPlayer", Multiplayer.GetUniqueId());
 	}
 
 	public void _on_join_pressed()
@@ -65,7 +65,7 @@ public partial class Main : Node2D
 
 		if (Multiplayer.IsServer())
 		{
-			GetNode<Node2D>("PlayerHolder").Call("SpawnPlayer", 1, id);
+			GetNode<Node2D>("PlayerHolder").Call("SpawnPlayer", id);
 		}
 	}
 

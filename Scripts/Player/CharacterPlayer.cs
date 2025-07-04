@@ -21,15 +21,8 @@ public partial class CharacterPlayer : CharacterBody2D
 	[Export]
 	public float AirFriction = 0.99f;
 
-	public UInt16 PlayerInfo = 1;
-
-	/*
-		PlayerInfo
-		1 = Player1 (keyboard)
-		2 = Player2 (keyboard)
-		3 = Player3 (GamePad) // to add
-	*/
-
+	[Export]
+	public PackedScene BulletScene = null;
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -58,27 +51,11 @@ public partial class CharacterPlayer : CharacterBody2D
 			Velocity = TempVel2;
 		}
 
-		if (PlayerInfo == 1)
-		{
-			if (Input.IsActionPressed("Up1") && IsOnFloor()) Velocity -= new Vector2(0, JumpPower);
+		if (Input.IsActionPressed("Up") && IsOnFloor()) Velocity -= new Vector2(0, JumpPower);
 
-			if (Input.IsActionPressed("Right1") && Velocity.X <  MaxMovementSpeed) Velocity += new Vector2( Speed * (float)delta, 0);
-			if (Input.IsActionPressed("Left1")  && Velocity.X > -MaxMovementSpeed) Velocity += new Vector2(-Speed * (float)delta, 0);
-		}
-
-		if (PlayerInfo == 2)
-		{
-			if (Input.IsActionPressed("Up2") && IsOnFloor()) Velocity -= new Vector2(0, JumpPower);
-
-            if (Input.IsActionPressed("Right2") && Velocity.X <  MaxMovementSpeed) Velocity += new Vector2( Speed * (float)delta, 0);
-            if (Input.IsActionPressed("Left2")  && Velocity.X > -MaxMovementSpeed) Velocity += new Vector2(-Speed * (float)delta, 0);
-        }
+		if (Input.IsActionPressed("Right") && Velocity.X <  MaxMovementSpeed) Velocity += new Vector2( Speed * (float)delta, 0);
+		if (Input.IsActionPressed("Left")  && Velocity.X > -MaxMovementSpeed) Velocity += new Vector2(-Speed * (float)delta, 0);
 
 		MoveAndSlide();
     }
-
-	public void SetInfo(UInt16 Info)
-	{
-		PlayerInfo = Info;
-	}
 }

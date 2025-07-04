@@ -90,10 +90,9 @@ public partial class PlayerHolder : Node2D
 	}
 
 
-	public void SpawnPlayer(UInt16 PlayerInfo, long pid)
+	public void SpawnPlayer(long pid)
 	{
 		Node2D Player = PlayerScene.Instantiate<Node2D>();
-		Player.GetNode<Node>("CharacterBody2D").Call("SetInfo", PlayerInfo);
 		Player.Name = pid.ToString();
 		AddChild(Player, true);
 	}

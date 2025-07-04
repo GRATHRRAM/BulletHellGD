@@ -18,3 +18,9 @@ position_smoothing_speed = 2.0
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("uid://cn1ahqcv5phvn")
 spawn_path = NodePath("..")
+
+[node name="BulletHolder" type="Node" parent="."]
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="BulletHolder"]
+_spawnable_scenes = PackedStringArray("uid://bhqaxhj0fubgo")
+spawn_path = NodePath("..")
