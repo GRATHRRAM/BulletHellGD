@@ -39,8 +39,7 @@ public partial class PlayerHolder : Node2D
 		{
 			if (child is Node2D Player)
 			{
-				if (Player.HasMeta("CamHolder")) continue;
-				if (Player.HasMeta("MultiplayerSpawner")) continue;
+				if (Player.HasMeta("NotPlayer")) continue;
 				CamDest += Player.GetNode<CharacterBody2D>("CharacterBody2D").Position;
 				PlayerCount++;
 			}

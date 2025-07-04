@@ -9,7 +9,7 @@ PlayerScene = ExtResource("2_gyble")
 Camera = NodePath("CamHolder")
 
 [node name="CamHolder" type="Node2D" parent="."]
-metadata/CamHolder = true
+metadata/NotPlayer = true
 
 [node name="Camera2D" type="Camera2D" parent="CamHolder"]
 position_smoothing_enabled = true
@@ -18,8 +18,10 @@ position_smoothing_speed = 2.0
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("uid://cn1ahqcv5phvn")
 spawn_path = NodePath("..")
+metadata/NotPlayer = true
 
-[node name="BulletHolder" type="Node" parent="."]
+[node name="BulletHolder" type="Node2D" parent="."]
+metadata/NotPlayer = true
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="BulletHolder"]
 _spawnable_scenes = PackedStringArray("uid://bhqaxhj0fubgo")

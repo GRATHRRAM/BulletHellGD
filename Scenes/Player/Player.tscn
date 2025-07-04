@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cn1ahqcv5phvn"]
+[gd_scene load_steps=7 format=3 uid="uid://cn1ahqcv5phvn"]
 
 [ext_resource type="Script" uid="uid://ddcwsv20jafid" path="res://Scripts/Player/NodePlayer.cs" id="1_ft8w5"]
 [ext_resource type="Script" uid="uid://d2vst04oi5jyp" path="res://Scripts/Player/CharacterPlayer.cs" id="1_s0eop"]
+[ext_resource type="PackedScene" uid="uid://bhqaxhj0fubgo" path="res://Scenes/Bullets/bullet.tscn" id="2_h54ih"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_l3ax4"]
 
@@ -15,6 +16,7 @@ properties/0/replication_mode = 1
 
 [node name="Player" type="Node2D"]
 script = ExtResource("1_ft8w5")
+BulletScene = ExtResource("2_h54ih")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 script = ExtResource("1_s0eop")

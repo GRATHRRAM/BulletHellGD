@@ -21,8 +21,10 @@ public partial class CharacterPlayer : CharacterBody2D
 	[Export]
 	public float AirFriction = 0.99f;
 
-	[Export]
-	public PackedScene BulletScene = null;
+    public override void _EnterTree()
+    {
+        base._EnterTree();
+    }
 
 	public override void _PhysicsProcess(double delta)
 	{

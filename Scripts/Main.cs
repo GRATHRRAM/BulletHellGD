@@ -31,9 +31,10 @@ public partial class Main : Node2D
 		ENetMultiplayerPeer peer = new ENetMultiplayerPeer();
 		peer.CreateServer(Port.ToInt());
 		Multiplayer.MultiplayerPeer = peer;
-		GetNode<Label>("CanvasLayer/Control/hosting").Visible = true;
 
 		GetNode<Node2D>("PlayerHolder").Call("SpawnPlayer", Multiplayer.GetUniqueId());
+
+		GetNode<CanvasLayer>("CanvasLayer").Visible = false;
 	}
 
 	public void _on_join_pressed()
@@ -54,8 +55,12 @@ public partial class Main : Node2D
 		}
 
 		ENetMultiplayerPeer peer = new ENetMultiplayerPeer();
-		peer.CreateClient(ip, Port.ToInt());
+		var err = peer.CreateClient(ip, Port.ToInt());
+		if(err != Error.Ok) { GD.Print(err); return; }
+
 		Multiplayer.MultiplayerPeer = peer;
+
+		GetNode<CanvasLayer>("CanvasLayer").Visible = false;
 	}
 
 

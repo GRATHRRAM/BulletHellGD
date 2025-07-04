@@ -5,6 +5,8 @@ public partial class Bullet : Node2D
 {
 	public Vector2 Velocity = Vector2.Zero;
 
+	public int CreatorID = 0;
+
 	public override void _PhysicsProcess(double delta)
 	{
 		base._PhysicsProcess(delta);

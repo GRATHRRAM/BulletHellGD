@@ -27,7 +27,7 @@ texture = ExtResource("1_tcy0y")
 replication_config = SubResource("SceneReplicationConfig_qngn8")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 15.0
 one_shot = true
 autostart = true
 
