@@ -33,8 +33,8 @@ offset_left = 32.0
 offset_top = 8.0
 offset_right = 180.0
 offset_bottom = 80.0
-text = "Press ` To Hide Leave
-Ip Empty While Hosting"
+text = "Leave Ip Empty While 
+Hosting"
 label_settings = SubResource("LabelSettings_2h353")
 
 [node name="Ip" type="TextEdit" parent="CanvasLayer/Control"]

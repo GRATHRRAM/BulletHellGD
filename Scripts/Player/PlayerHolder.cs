@@ -61,6 +61,7 @@ public partial class PlayerHolder : Node2D
 			{
 				if (child is Node2D player && !player.HasMeta("CamHolder"))
 				{
+					if (player.HasMeta("NotPlayer")) continue;
 					var body = player.GetNode<CharacterBody2D>("CharacterBody2D");
 					playerPositions.Add(body.Position);
 				}

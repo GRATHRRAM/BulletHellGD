@@ -11,6 +11,7 @@ public partial class Bullet : Node2D
 	{
 		base._PhysicsProcess(delta);
 
+		if (!IsMultiplayerAuthority()) return;
 		Position += Velocity * (float) delta;
 	}
 

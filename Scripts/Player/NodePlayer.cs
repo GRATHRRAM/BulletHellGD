@@ -10,7 +10,7 @@ public partial class NodePlayer : Node2D
 	[Export]
 	private PackedScene BulletScene = null;
 
-	private Node BulletHolder = null;
+	private Node2D BulletHolder = null;
 
 	public override void _EnterTree()
 	{
@@ -21,25 +21,30 @@ public partial class NodePlayer : Node2D
 
 		SetMultiplayerAuthority(Int32.Parse(Name));
 
-		BulletHolder = GetParent().GetNode("BulletHolder");
+		BulletHolder = GetParent().GetNode<Node2D>("BulletHolder");
+
+		var bulletHolder = GetParent().GetNode("BulletHolder");
+		bulletHolder.SetMultiplayerAuthority(GetMultiplayerAuthority());
 	}
 
-    public override void _Input(InputEvent @event)
-    {
-        base._Input(@event);
+	public override void _Input(InputEvent @event)
+	{
+		base._Input(@event);
 
-		if(Input.IsActionJustPressed("Shoot"))
+		if (!IsMultiplayerAuthority()) return;
+
+		if (Input.IsActionJustPressed("Shoot"))
 		{
-			Vector2 PlayerPos = GetNode<CharacterBody2D>("CharacterBody2D").GlobalPosition;
+			Bullet _Bullet = (Bullet) BulletScene.Instantiate();
+			
+			_Bullet.Position = GetNode<CharacterBody2D>("CharacterBody2D").Position;
+			_Bullet.Velocity = GetNode<CharacterBody2D>("CharacterBody2D").GlobalPosition.DirectionTo(GetGlobalMousePosition()) * BulletSpeed;
 
-			Node2D Bullet = (Node2D) BulletScene.Instantiate();
+			int uniqeid = Multiplayer.GetUniqueId();
+			_Bullet.Name = uniqeid.ToString();
+			_Bullet.SetMultiplayerAuthority(uniqeid);
 
-            Bullet.Set("Position", PlayerPos);
-            Bullet.Set("Velocity", PlayerPos.DirectionTo(GetGlobalMousePosition()) * BulletSpeed);
-
-            BulletHolder.AddChild(Bullet, true);
-
-			GD.Print($"{Bullet.GlobalPosition}");
+			BulletHolder.AddChild(_Bullet, true);
 		}
-    }
+	}
 }

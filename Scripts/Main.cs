@@ -10,14 +10,6 @@ public partial class Main : Node2D
 		Multiplayer.PeerDisconnected += OnPeerDisconnected;
 	}
 
-	public override void _Input(InputEvent @event)
-	{
-		base._Input(@event);
-
-		if (Input.IsActionJustPressed("HideGui")) 
-			GetNode<CanvasLayer>("CanvasLayer").Visible = !GetNode<CanvasLayer>("CanvasLayer").Visible;
-	}
-
 	public void _on_host_pressed()
 	{
 		string Port = GetNode<TextEdit>("CanvasLayer/Control/Port").Text;
