@@ -40,9 +40,8 @@ public partial class NodePlayer : Node2D
 			_Bullet.Position = GetNode<CharacterBody2D>("CharacterBody2D").Position;
 			_Bullet.Velocity = GetNode<CharacterBody2D>("CharacterBody2D").GlobalPosition.DirectionTo(GetGlobalMousePosition()) * BulletSpeed;
 
-			int uniqeid = Multiplayer.GetUniqueId();
-			_Bullet.Name = uniqeid.ToString();
-			_Bullet.SetMultiplayerAuthority(uniqeid);
+			_Bullet.Name = Multiplayer.GetUniqueId().ToString() + new Random().Next(0,10000).ToString();
+			_Bullet.SetMultiplayerAuthority(Int32.Parse(Name));
 
 			BulletHolder.AddChild(_Bullet, true);
 		}
